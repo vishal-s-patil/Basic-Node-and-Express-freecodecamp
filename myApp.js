@@ -13,10 +13,14 @@ myLogger = (req, res, next) => {
 app.use(myLogger);
 
 app.get('/now', function (req, res, next) {
-    req.time = new Date().toString();  // Hypothetical synchronous operation
+    req.time = new Date().toString();
     next();
 }, function (req, res) {
     res.json({ "time": req.time });
+});
+
+app.get('/:word/echo', (req, res) => {
+    res.json({ "echo": req.params.word });
 });
 
 app.get('/', (req, res) => {
