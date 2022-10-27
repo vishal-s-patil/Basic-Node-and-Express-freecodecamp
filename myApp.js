@@ -1,10 +1,16 @@
-let express = require('express');
-let app = express();
+const express = require("express");
+const path = require('path');
+const app = express();
 require('dotenv').config();
 
-// app.use(express.static(__dirname + '/public'))
-app.use('/public', express.static(__dirname + '/public'))
+app.use(express.static(path.join(__dirname, '/public')));
 
+myLogger = (req, res, next) => {
+    console.log(`${req.method} ${req.url} - ${req.ip}`);
+    next();
+}
+
+app.use(myLogger);
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/index.html');
