@@ -12,6 +12,13 @@ myLogger = (req, res, next) => {
 
 app.use(myLogger);
 
+app.get('/now', function (req, res, next) {
+    req.time = new Date().toString();  // Hypothetical synchronous operation
+    next();
+}, function (req, res) {
+    res.send(req.time);
+});
+
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/index.html');
 })
